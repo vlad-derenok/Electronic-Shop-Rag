@@ -1,7 +1,5 @@
-# rag_utils.py
 import os
 from PyPDF2 import PdfReader
-from langchain.text_splitter import RecursiveCharacterTextSplitter, CharacterTextSplitter
 
 def load_txt(path):
     with open(path, "r", encoding="utf-8") as f:

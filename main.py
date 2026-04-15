@@ -1,12 +1,11 @@
 import weaviate
 import gradio as gr
-import os
 from dotenv import load_dotenv
 from sentence_transformers import SentenceTransformer
 from sentence_transformers import CrossEncoder
-from google import genai
-
+from services.prompts import build_rag_prompt, build_system_prompt
 from rag_utils import load_documents, chunk_documents
+import ollama
 
 load_dotenv()
 
@@ -17,46 +16,17 @@ DATA_FOLDER = "data"
 client = weaviate.Client(WEAVIATE_URL)
 embedder = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
 reranker = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2")
-gemini = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 
 def get_embedding(text):
-    return embedder.encode(text).tolist()
-
-def generate_answer(prompt):
-    response = gemini.models.generate_content(
-        model="gemini-2.5-flash", 
-        contents=prompt
-    )
-    return response.text
-
-# # ===== CREATE CLASS =====
-# if not client.schema.exists(CLASS_NAME):
-#     client.schema.create_class({
-#         "class": CLASS_NAME,
-#         "properties": [{"name": "text", "dataType": ["text"]}],
-#         "vectorizer": "none"
-#     })
-
-# # ===== LOAD DATA =====
-# docs = load_documents(DATA_FOLDER)
-# chunks = chunk_documents(docs, strategy="overlap")
-
-# print("Загружаем чанки в Weaviate...")
-
-# for chunk in chunks:
-#     vector = get_embedding(chunk)
-#     client.data_object.create(
-#         data_object={"text": chunk},
-#         class_name=CLASS_NAME,
-#         vector=vector
-#     )
-
-# print("Готово!")
+    return ollama.embeddings(
+        model="nomic-embed-text",
+        prompt=text
+    )["embedding"]
 
 def rerank(query, chunks):
     pairs = [(query, chunk["text"]) for chunk in chunks]
 
-    scores = reranker.predict(pairs)  # ✅ теперь работает
+    scores = reranker.predict(pairs)
 
     scored = list(zip(chunks, scores))
 
@@ -64,17 +34,18 @@ def rerank(query, chunks):
 
     return [item[0] for item in scored]
 
-def retrieve(query, k=5):
+def retrieve(query, k=5, alpha=0.5):
     vector = get_embedding(query)
 
     result = (
         client.query
         .get(CLASS_NAME, ["text"])
-        .with_near_vector({
-            "vector": vector,
-            "certainty": 0.5
-        })
-        .with_limit(k * 3) 
+        .with_hybrid(
+            query=query,
+            vector=vector,
+            alpha=alpha
+        )
+        .with_limit(k * 3)
         .do()
     )
 
@@ -82,10 +53,7 @@ def retrieve(query, k=5):
         return []
 
     items = result["data"]["Get"].get(CLASS_NAME, [])
-
-    if not items:
-        return []
-
+    
     seen = set()
     unique = []
     for item in items:
@@ -98,32 +66,54 @@ def retrieve(query, k=5):
 
     return reranked[:k]
 
+chat_history = []
+
+def build_history(max_turns=3):
+    recent = chat_history[-max_turns:]
+
+    history_text = ""
+    for item in recent:
+        history_text += f"Вопрос: {item['question']}\n"
+        history_text += f"Ответ: {item['answer']}\n\n"
+
+    return history_text
+
+def generate_answer_with_history(messages):
+    response = ollama.chat(
+        model="qwen2.5:7b",
+        messages=messages
+    )
+
+    return response["message"]["content"]
+
 def answer_question(query):
+    history_text = ""
+    for item in chat_history[-3:]:
+        history_text += f"Вопрос: {item['question']}\nОтвет: {item['answer']}\n\n"
+
+    history_messages = []
+    for item in chat_history[-3:]:
+        history_messages.append({"role": "user", "content": item["question"]})
+        history_messages.append({"role": "assistant", "content": item["answer"]})
+
     results = retrieve(query, k=5)
 
     if not results:
-        return "❌ Нет данных в базе", ""
+        return "Нет данных в базе", ""
 
     chunks = [item["text"] for item in results]
-
     context = "\n\n".join(chunks)
-
-    prompt = f"""
-Ответь на вопрос строго по контексту.
-
-Контекст:
-{context}
-
-Вопрос: {query}
-Ответ:
-"""
-
-    answer = generate_answer(prompt)
-
     chunks_text = "\n\n---\n\n".join(chunks)
 
-    return answer, chunks_text
+    messages = [
+        {"role": "system", "content": build_system_prompt()},
+        *history_messages,
+        {"role": "user", "content": build_rag_prompt(context, query, history=history_text)}
+    ]
 
+    answer = generate_answer_with_history(messages)
+    chat_history.append({"question": query, "answer": answer})
+    return answer, chunks_text
 
 def evaluate_manual(query, retrieved_chunks):
     print("\n=== Оценка релевантности ===")
@@ -139,7 +129,7 @@ def evaluate_manual(query, retrieved_chunks):
 
     precision = relevant / len(retrieved_chunks) if retrieved_chunks else 0
 
-    print(f"\n📊 Precision@{len(retrieved_chunks)} = {precision:.2f}")
+    print(f"\nPrecision@{len(retrieved_chunks)} = {precision:.2f}")
 
 
 def chat_interface(query):
@@ -210,7 +200,7 @@ def rebuild_db(strategy):
 
     client.schema.create_class({
         "class": CLASS_NAME,
-        "properties": [{"name": "text", "dataType": ["text"]}],
+        "properties": [{"name": "text", "dataType": ["text"], "tokenization": "word"}],
         "vectorizer": "none"
     })
 

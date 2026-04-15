@@ -1,0 +1,15 @@
+2026-04-15 12:38:35,953 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2026-04-15 12:38:36,049 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2026-04-15 12:38:45,246 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-04-15 12:38:45,246 [INFO] Tokens — input: 1152, output: 18, total: 1170
+2026-04-15 12:38:46,563 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2026-04-15 12:39:36,699 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2026-04-15 12:39:36,825 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2026-04-15 12:39:37,920 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-04-15 12:39:37,925 [INFO] Tokens — input: 1152, output: 18, total: 1170
+2026-04-15 12:39:37,952 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2026-04-15 12:41:15,527 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2026-04-15 12:41:15,653 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2026-04-15 12:41:16,691 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-04-15 12:41:16,691 [INFO] Tokens — input: 1152, output: 18, total: 1170
+2026-04-15 12:41:16,719 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
