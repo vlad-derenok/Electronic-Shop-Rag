@@ -1,6 +1,7 @@
 import os
 import weaviate
 import logging
+import ollama
 from dotenv import load_dotenv
 from langchain_community.document_loaders import (
     DirectoryLoader,
@@ -8,13 +9,8 @@ from langchain_community.document_loaders import (
     PyPDFLoader,
 )
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain_community.vectorstores import Weaviate as LangChainWeaviate
-from langchain.callbacks import StdOutCallbackHandler
-from services.gemini_langchain_embeddings import GeminiEmbeddings
 
-logging.getLogger("httpx").setLevel(logging.WARNING),
-
-
+logging.getLogger("httpx").setLevel(logging.WARNING)
 
 load_dotenv()
 
@@ -22,8 +18,8 @@ logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(message)s",
     handlers=[
-        logging.StreamHandler(),          
-        logging.FileHandler("rag.log")    
+        logging.StreamHandler(),
+        logging.FileHandler("rag.log")
     ]
 )
 logger = logging.getLogger(__name__)
@@ -32,25 +28,40 @@ WEAVIATE_URL = os.getenv("WEAVIATE_URL")
 INDEX_NAME = os.getenv("INDEX_NAME")
 DATA_FOLDER = os.getenv("DATA_FOLDER")
 
-
 class RAGData:
     def __init__(self, data_folder: str = DATA_FOLDER):
         self.client = weaviate.Client(WEAVIATE_URL)
         self.data_folder = data_folder
-        self.vector_store = None
-        self.embeddings = GeminiEmbeddings()
-        self.callback = StdOutCallbackHandler()
 
         if not self.client.is_ready():
             raise RuntimeError("Weaviate is not ready")
 
-    logger.info("RAGData initialized, Weaviate connected")
+        logger.info("RAGData initialized, Weaviate connected")
+
+    def get_embedding(self, text: str) -> list:
+        response = ollama.embeddings(
+            model="nomic-embed-text",
+            prompt=text
+        )
+        return response["embedding"]
 
     def init_data(self):
         if not os.path.exists(self.data_folder):
             raise RuntimeError(f"Data folder not found: {self.data_folder}")
-        
+
         logger.info(f"Loading documents from: {self.data_folder}")
+
+        try:
+            self.client.schema.delete_class(INDEX_NAME)
+            logger.info(f"Deleted existing index: {INDEX_NAME}")
+        except Exception:
+            pass
+
+        self.client.schema.create_class({
+            "class": INDEX_NAME,
+            "properties": [{"name": "text", "dataType": ["text"], "tokenization": "word"}],
+            "vectorizer": "none"
+        })
 
         loaders = [
             DirectoryLoader(
@@ -71,27 +82,40 @@ class RAGData:
         documents = []
         for loader in loaders:
             docs = loader.load()
-            logger.info(f"Loaded {len(docs)} documents from {loader}")
+            logger.info(f"Loaded {len(docs)} documents")
             documents.extend(docs)
 
         logger.info(f"Total documents loaded: {len(documents)}")
 
         splitter = RecursiveCharacterTextSplitter(
-            chunk_size=1000,
-            chunk_overlap=200,
+            # Best chunk configuration:
+            # chunk_size=800, chunk_overlap=150
+            #
+            # This setup is the best because:
+            # - MRR = 1.0 → correct chunk is always ranked first (perfect retrieval)
+            # - Answer score = 100 → model consistently produces correct answers
+            # - Average similarity = 55.0 → acceptable semantic match, sufficient for correct grounding
+            #
+            # Even though similarity is not the highest, this configuration gives the best balance
+            # between retrieval accuracy and final answer correctness.
+            
+            chunk_size=800,
+            chunk_overlap=150,
         )
         splits = splitter.split_documents(documents)
         logger.info(f"Total chunks after splitting: {len(splits)}")
 
-        self.vector_store = LangChainWeaviate(
-            client=self.client,
-            index_name=INDEX_NAME,
-            text_key="text",
-            embedding=self.embeddings
-        )
+        stored = 0
+        for doc in splits:
+            vector = self.get_embedding(doc.page_content)
+            self.client.data_object.create(
+                data_object={"text": doc.page_content},
+                class_name=INDEX_NAME,
+                vector=vector
+            )
+            stored += 1
 
-        ids = self.vector_store.add_documents(splits)
-        logger.info(f"Stored vectors: {len(ids)}")
+        logger.info(f"Stored vectors: {stored}")
 
         total_chars = sum(len(doc.page_content) for doc in splits)
         estimated_tokens = total_chars // 4
@@ -100,7 +124,7 @@ class RAGData:
         return {
             "documents": len(documents),
             "chunks": len(splits),
-            "stored_vectors": len(ids),
+            "stored_vectors": stored,
         }
 
     def get_vector_store(self):

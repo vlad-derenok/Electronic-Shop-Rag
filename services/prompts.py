@@ -1,45 +1,47 @@
 def build_rag_prompt(context, question, history=""):
-    history_block = f"{history}" if history.strip() else "отсутствует"
-    
+    history_block = f"{history}" if history.strip() else "none"
+
     return f"""
-История диалога:
+Conversation history:
 {history_block}
 
-Контекст из базы знаний:
+Knowledge base context:
 {context}
 
-Вопрос: {question}
+Question: {question}
 
-Инструкция:
-- Если вопрос касается истории диалога (например "что я спрашивал", "предыдущий вопрос") — отвечай ТОЛЬКО по истории диалога выше, игнорируй контекст
-- Если вопрос по теме — отвечай по контексту из базы знаний
-- Если ответа нет нигде — скажи "нет информации"
+Instructions:
+- If the question is about the conversation history (e.g. "what did I ask", "previous question") — answer ONLY based on the conversation history above, ignore the context
+- If the question is on topic — answer based on the knowledge base context
+- If the answer is not found anywhere — say "no information"
 
-Ответ:
+Answer:
 """
+
 
 def build_history_prompt(history: str, question: str) -> str:
     return f"""
-Ты — ассистент с памятью.
+You are an assistant with memory.
 
-Отвечай ТОЛЬКО на основе истории диалога.
-Если ответа нет в истории — скажи "нет информации".
+Answer ONLY based on the conversation history.
+If the answer is not in the history — say "no information".
 
-История:
+History:
 {history}
 
-Вопрос: {question}
+Question: {question}
 
-Ответ:
+Answer:
 """
+
 
 def build_system_prompt():
     return """
-Ты — AI ассистент.
+You are an AI assistant.
 
-Правила:
-- Отвечай кратко и по делу
-- Не придумывай факты
-- Если информации нет — скажи "нет информации"
-- Используй контекст, если он предоставлен
+Rules:
+- Answer briefly and to the point
+- Do not make up facts
+- If there is no information — say "no information"
+- Use the context if it is provided
 """

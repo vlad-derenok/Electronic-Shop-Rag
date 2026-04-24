@@ -1,7 +1,6 @@
 import os
 import weaviate
 from dotenv import load_dotenv
-from fuzzywuzzy import fuzz  
 from services.evaluator import precision_at_k_fuzzy
 import ollama
 from services.prompts import build_rag_prompt, build_system_prompt
@@ -33,25 +32,22 @@ class RAGAssistant:
         self.history = [] 
 
     def normalize_text(self, text: str) -> str:
-        """
-        Приводим текст к нижнему регистру и убираем лишние пробелы/переносы
-        """
         return " ".join(text.lower().split())
-
-    def precision_at_k_fuzzy(retrieved_chunks, relevant_chunks, threshold=70):
-        k = len(retrieved_chunks)
-        relevant_count = 0
-
-        for r_chunk in retrieved_chunks:
-            for rel_chunk in relevant_chunks:
-                if fuzz.partial_ratio(r_chunk, rel_chunk) >= threshold:  # было ratio
-                    relevant_count += 1
-                    break
-
-        return relevant_count / k if k > 0 else 0
-
-    def evaluate(self, question: str, relevant_chunks: list, k: int = 5, threshold=70):
+    
+    def evaluate(self, question: str, relevant_chunks: list, k: int = 3, threshold=70):
+        """
+        Best k selection:
+        After testing multiple values (k=3, 5, 7, 10) on a small dataset,
+        k=3 gives the best results.
+        
+        Reason:
+        - the dataset is small, so relevant information is usually found in top results
+        - increasing k introduces more noise and irrelevant chunks
+        - k=3 maintains the best balance between precision and context quality
+        
+        Therefore, k=3 is optimal for this dataset size and retrieval setup.
         docs = self.retrieve(question, k=k)
+        """
 
         if not docs:
             return {

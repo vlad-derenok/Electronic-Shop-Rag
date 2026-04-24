@@ -1,0 +1,237 @@
+2026-04-23 19:44:58,069 [INFO] RAGData initialized, Weaviate connected
+2026-04-23 19:44:58,069 [INFO] Loading documents from: data
+2026-04-23 19:44:58,079 [INFO] Deleted existing index: ElectronicsChunk
+2026-04-23 19:44:58,365 [INFO] Loaded 4 documents
+2026-04-23 19:44:58,368 [INFO] Loaded 0 documents
+2026-04-23 19:44:58,368 [INFO] Total documents loaded: 4
+2026-04-23 19:44:58,369 [INFO] Total chunks after splitting: 69
+2026-04-23 19:45:07,501 [INFO] Stored vectors: 69
+2026-04-23 19:45:07,501 [INFO] Estimated embedding tokens: ~14095
+2026-04-23 20:03:08,284 [INFO] RAGData initialized, Weaviate connected
+2026-04-23 20:03:08,285 [INFO] Loading documents from: data
+2026-04-23 20:03:08,301 [INFO] Deleted existing index: ElectronicsChunk
+2026-04-23 20:03:08,617 [INFO] Loaded 4 documents
+2026-04-23 20:03:08,619 [INFO] Loaded 0 documents
+2026-04-23 20:03:08,619 [INFO] Total documents loaded: 4
+2026-04-23 20:03:08,626 [INFO] Total chunks after splitting: 294
+2026-04-23 20:03:44,438 [INFO] Stored vectors: 294
+2026-04-23 20:03:44,438 [INFO] Estimated embedding tokens: ~14377
+2026-04-23 20:04:07,374 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2026-04-23 20:04:07,519 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2026-04-23 20:04:15,656 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-04-23 20:04:15,658 [INFO] Tokens — input: 738, output: 3, total: 741
+2026-04-23 20:04:17,811 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2026-04-23 20:05:38,548 [INFO] RAGData initialized, Weaviate connected
+2026-04-23 20:05:38,549 [INFO] Loading documents from: data
+2026-04-23 20:05:38,557 [INFO] Deleted existing index: ElectronicsChunk
+2026-04-23 20:05:38,799 [INFO] Loaded 4 documents
+2026-04-23 20:05:38,801 [INFO] Loaded 0 documents
+2026-04-23 20:05:38,801 [INFO] Total documents loaded: 4
+2026-04-23 20:05:38,804 [INFO] Total chunks after splitting: 168
+2026-04-23 20:05:54,446 [INFO] Stored vectors: 168
+2026-04-23 20:05:54,446 [INFO] Estimated embedding tokens: ~13897
+2026-04-23 20:06:05,426 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2026-04-23 20:06:05,559 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2026-04-23 20:06:13,275 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-04-23 20:06:13,276 [INFO] Tokens — input: 785, output: 3, total: 788
+2026-04-23 20:06:15,300 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2026-04-23 20:07:06,550 [INFO] RAGData initialized, Weaviate connected
+2026-04-23 20:07:06,551 [INFO] Loading documents from: data
+2026-04-23 20:07:06,566 [INFO] Deleted existing index: ElectronicsChunk
+2026-04-23 20:07:06,822 [INFO] Loaded 4 documents
+2026-04-23 20:07:06,823 [INFO] Loaded 0 documents
+2026-04-23 20:07:06,824 [INFO] Total documents loaded: 4
+2026-04-23 20:07:06,826 [INFO] Total chunks after splitting: 93
+2026-04-23 20:07:15,576 [INFO] Stored vectors: 93
+2026-04-23 20:07:15,577 [INFO] Estimated embedding tokens: ~13909
+2026-04-23 20:07:24,294 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2026-04-23 20:07:24,425 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2026-04-23 20:07:32,526 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-04-23 20:07:32,527 [INFO] Tokens — input: 1376, output: 3, total: 1379
+2026-04-23 20:07:34,580 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2026-04-23 20:11:01,172 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2026-04-23 20:11:01,308 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2026-04-23 20:11:09,438 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-04-23 20:11:09,439 [INFO] Tokens — input: 1376, output: 3, total: 1379
+2026-04-23 20:11:11,479 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2026-04-23 20:12:59,116 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2026-04-23 20:13:54,507 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2026-04-23 20:13:54,637 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2026-04-23 20:14:02,788 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-04-23 20:14:02,788 [INFO] Tokens — input: 1376, output: 3, total: 1379
+2026-04-23 20:14:04,823 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2026-04-23 20:16:15,246 [INFO] RAGData initialized, Weaviate connected
+2026-04-23 20:16:15,246 [INFO] Loading documents from: data
+2026-04-23 20:16:15,256 [INFO] Deleted existing index: ElectronicsChunk
+2026-04-23 20:16:15,489 [INFO] Loaded 4 documents
+2026-04-23 20:16:15,490 [INFO] Loaded 0 documents
+2026-04-23 20:16:15,490 [INFO] Total documents loaded: 4
+2026-04-23 20:16:15,498 [INFO] Total chunks after splitting: 294
+2026-04-23 20:16:42,710 [INFO] Stored vectors: 294
+2026-04-23 20:16:42,710 [INFO] Estimated embedding tokens: ~14377
+2026-04-23 20:16:59,421 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2026-04-23 20:16:59,551 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2026-04-23 20:17:07,258 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-04-23 20:17:07,259 [INFO] Tokens — input: 738, output: 3, total: 741
+2026-04-23 20:17:09,250 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2026-04-23 20:24:27,149 [INFO] RAGData initialized, Weaviate connected
+2026-04-23 20:24:27,150 [INFO] Loading documents from: data
+2026-04-23 20:24:27,158 [INFO] Deleted existing index: ElectronicsChunk
+2026-04-23 20:24:27,388 [INFO] Loaded 4 documents
+2026-04-23 20:24:27,389 [INFO] Loaded 0 documents
+2026-04-23 20:24:27,389 [INFO] Total documents loaded: 4
+2026-04-23 20:24:27,390 [INFO] Total chunks after splitting: 48
+2026-04-23 20:24:33,868 [INFO] Stored vectors: 48
+2026-04-23 20:24:33,870 [INFO] Estimated embedding tokens: ~14838
+2026-04-23 20:24:51,633 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2026-04-23 20:24:51,764 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2026-04-23 20:25:01,163 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-04-23 20:25:01,164 [INFO] Tokens — input: 2578, output: 3, total: 2581
+2026-04-23 20:25:03,183 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2026-04-23 20:28:04,236 [INFO] Tokens — input: 2404, output: 25, total: 2429
+2026-04-23 20:31:17,310 [INFO] RAGData initialized, Weaviate connected
+2026-04-23 20:31:17,316 [INFO] Loading documents from: data
+2026-04-23 20:31:17,326 [INFO] Deleted existing index: ElectronicsChunk
+2026-04-23 20:31:17,567 [INFO] Loaded 4 documents
+2026-04-23 20:31:17,567 [INFO] Loaded 0 documents
+2026-04-23 20:31:17,568 [INFO] Total documents loaded: 4
+2026-04-23 20:31:17,575 [INFO] Total chunks after splitting: 294
+2026-04-23 20:31:45,834 [INFO] Stored vectors: 294
+2026-04-23 20:31:45,834 [INFO] Estimated embedding tokens: ~14377
+2026-04-23 20:32:59,730 [INFO] Tokens — input: 667, output: 13, total: 680
+2026-04-23 20:33:49,205 [INFO] Tokens — input: 488, output: 3, total: 491
+2026-04-23 20:34:40,536 [INFO] Tokens — input: 770, output: 13, total: 783
+2026-04-23 20:37:10,436 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2026-04-23 20:37:10,521 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2026-04-23 20:37:18,736 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-04-23 20:37:18,736 [INFO] Tokens — input: 667, output: 18, total: 685
+2026-04-23 20:37:20,779 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2026-04-23 20:38:26,178 [INFO] RAGData initialized, Weaviate connected
+2026-04-23 20:38:26,178 [INFO] Loading documents from: data
+2026-04-23 20:38:26,185 [INFO] Deleted existing index: ElectronicsChunk
+2026-04-23 20:38:26,415 [INFO] Loaded 4 documents
+2026-04-23 20:38:26,416 [INFO] Loaded 0 documents
+2026-04-23 20:38:26,416 [INFO] Total documents loaded: 4
+2026-04-23 20:38:26,419 [INFO] Total chunks after splitting: 168
+2026-04-23 20:38:42,203 [INFO] Stored vectors: 168
+2026-04-23 20:38:42,203 [INFO] Estimated embedding tokens: ~13897
+2026-04-23 20:38:47,175 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2026-04-23 20:38:47,303 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2026-04-23 20:38:55,358 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-04-23 20:38:55,358 [INFO] Tokens — input: 758, output: 13, total: 771
+2026-04-23 20:38:57,387 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2026-04-23 20:39:40,809 [INFO] RAGData initialized, Weaviate connected
+2026-04-23 20:39:40,810 [INFO] Loading documents from: data
+2026-04-23 20:39:40,819 [INFO] Deleted existing index: ElectronicsChunk
+2026-04-23 20:39:41,060 [INFO] Loaded 4 documents
+2026-04-23 20:39:41,060 [INFO] Loaded 0 documents
+2026-04-23 20:39:41,060 [INFO] Total documents loaded: 4
+2026-04-23 20:39:41,063 [INFO] Total chunks after splitting: 93
+2026-04-23 20:39:50,046 [INFO] Stored vectors: 93
+2026-04-23 20:39:50,046 [INFO] Estimated embedding tokens: ~13909
+2026-04-23 20:40:03,401 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2026-04-23 20:40:03,533 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2026-04-23 20:40:12,334 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-04-23 20:40:12,335 [INFO] Tokens — input: 1233, output: 23, total: 1256
+2026-04-23 20:40:14,393 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2026-04-23 20:41:20,892 [INFO] RAGData initialized, Weaviate connected
+2026-04-23 20:41:20,893 [INFO] Loading documents from: data
+2026-04-23 20:41:20,902 [INFO] Deleted existing index: ElectronicsChunk
+2026-04-23 20:41:21,132 [INFO] Loaded 4 documents
+2026-04-23 20:41:21,133 [INFO] Loaded 0 documents
+2026-04-23 20:41:21,134 [INFO] Total documents loaded: 4
+2026-04-23 20:41:21,136 [INFO] Total chunks after splitting: 69
+2026-04-23 20:41:28,003 [INFO] Stored vectors: 69
+2026-04-23 20:41:28,003 [INFO] Estimated embedding tokens: ~14095
+2026-04-23 20:41:34,312 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2026-04-23 20:41:34,591 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2026-04-23 20:41:44,517 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-04-23 20:41:44,518 [INFO] Tokens — input: 1644, output: 23, total: 1667
+2026-04-23 20:41:46,577 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2026-04-23 20:42:25,764 [INFO] RAGData initialized, Weaviate connected
+2026-04-23 20:42:25,764 [INFO] Loading documents from: data
+2026-04-23 20:42:25,772 [INFO] Deleted existing index: ElectronicsChunk
+2026-04-23 20:42:26,009 [INFO] Loaded 4 documents
+2026-04-23 20:42:26,010 [INFO] Loaded 0 documents
+2026-04-23 20:42:26,011 [INFO] Total documents loaded: 4
+2026-04-23 20:42:26,012 [INFO] Total chunks after splitting: 48
+2026-04-23 20:42:31,741 [INFO] Stored vectors: 48
+2026-04-23 20:42:31,742 [INFO] Estimated embedding tokens: ~14838
+2026-04-23 20:42:47,738 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2026-04-23 20:42:47,909 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2026-04-23 20:42:57,782 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-04-23 20:42:57,783 [INFO] Tokens — input: 2404, output: 23, total: 2427
+2026-04-23 20:42:59,900 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2026-04-23 20:46:37,792 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2026-04-23 20:46:37,920 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2026-04-23 20:46:48,248 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-04-23 20:46:48,249 [INFO] Tokens — input: 2404, output: 29, total: 2433
+2026-04-23 20:46:50,333 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2026-04-23 20:47:33,521 [INFO] Tokens — input: 2404, output: 23, total: 2427
+2026-04-23 20:48:20,305 [INFO] RAGData initialized, Weaviate connected
+2026-04-23 20:48:20,305 [INFO] Loading documents from: data
+2026-04-23 20:48:20,325 [INFO] Deleted existing index: ElectronicsChunk
+2026-04-23 20:48:20,557 [INFO] Loaded 4 documents
+2026-04-23 20:48:20,558 [INFO] Loaded 0 documents
+2026-04-23 20:48:20,559 [INFO] Total documents loaded: 4
+2026-04-23 20:48:20,560 [INFO] Total chunks after splitting: 69
+2026-04-23 20:48:29,410 [INFO] Stored vectors: 69
+2026-04-23 20:48:29,410 [INFO] Estimated embedding tokens: ~14095
+2026-04-23 20:48:53,439 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2026-04-23 20:48:53,567 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2026-04-23 20:49:02,889 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-04-23 20:49:02,890 [INFO] Tokens — input: 1644, output: 23, total: 1667
+2026-04-23 20:49:05,088 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2026-04-23 20:49:43,145 [INFO] RAGData initialized, Weaviate connected
+2026-04-23 20:49:43,150 [INFO] Loading documents from: data
+2026-04-23 20:49:43,157 [INFO] Deleted existing index: ElectronicsChunk
+2026-04-23 20:49:43,390 [INFO] Loaded 4 documents
+2026-04-23 20:49:43,390 [INFO] Loaded 0 documents
+2026-04-23 20:49:43,390 [INFO] Total documents loaded: 4
+2026-04-23 20:49:43,390 [INFO] Total chunks after splitting: 93
+2026-04-23 20:49:52,085 [INFO] Stored vectors: 93
+2026-04-23 20:49:52,085 [INFO] Estimated embedding tokens: ~13909
+2026-04-23 20:49:56,829 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2026-04-23 20:49:56,932 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2026-04-23 20:50:05,797 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-04-23 20:50:05,797 [INFO] Tokens — input: 1233, output: 23, total: 1256
+2026-04-23 20:50:07,906 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2026-04-23 20:50:25,108 [INFO] RAGData initialized, Weaviate connected
+2026-04-23 20:50:25,108 [INFO] Loading documents from: data
+2026-04-23 20:50:25,131 [INFO] Deleted existing index: ElectronicsChunk
+2026-04-23 20:50:25,377 [INFO] Loaded 4 documents
+2026-04-23 20:50:25,379 [INFO] Loaded 0 documents
+2026-04-23 20:50:25,379 [INFO] Total documents loaded: 4
+2026-04-23 20:50:25,382 [INFO] Total chunks after splitting: 168
+2026-04-23 20:50:40,967 [INFO] Stored vectors: 168
+2026-04-23 20:50:40,968 [INFO] Estimated embedding tokens: ~13897
+2026-04-23 20:50:45,983 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2026-04-23 20:50:46,112 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2026-04-23 20:50:54,471 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-04-23 20:50:54,472 [INFO] Tokens — input: 758, output: 18, total: 776
+2026-04-23 20:50:56,572 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2026-04-23 20:51:17,264 [INFO] RAGData initialized, Weaviate connected
+2026-04-23 20:51:17,265 [INFO] Loading documents from: data
+2026-04-23 20:51:17,287 [INFO] Deleted existing index: ElectronicsChunk
+2026-04-23 20:51:17,526 [INFO] Loaded 4 documents
+2026-04-23 20:51:17,529 [INFO] Loaded 0 documents
+2026-04-23 20:51:17,529 [INFO] Total documents loaded: 4
+2026-04-23 20:51:17,537 [INFO] Total chunks after splitting: 294
+2026-04-23 20:51:44,795 [INFO] Stored vectors: 294
+2026-04-23 20:51:44,795 [INFO] Estimated embedding tokens: ~14377
+2026-04-23 20:51:47,144 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2026-04-23 20:51:47,247 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2026-04-23 20:51:55,279 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-04-23 20:51:55,282 [INFO] Tokens — input: 667, output: 13, total: 680
+2026-04-23 20:51:57,354 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2026-04-23 20:58:20,375 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2026-04-23 20:58:20,457 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2026-04-23 20:58:20,540 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2026-04-23 20:58:20,617 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2026-04-23 20:59:32,647 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2026-04-23 20:59:32,779 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2026-04-23 20:59:32,907 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2026-04-23 20:59:33,039 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2026-04-24 11:27:44,020 [INFO] Tokens — input: 738, output: 3, total: 741
+2026-04-24 11:33:23,435 [INFO] Tokens — input: 738, output: 3, total: 741
+2026-04-24 11:33:47,617 [INFO] Tokens — input: 785, output: 3, total: 788

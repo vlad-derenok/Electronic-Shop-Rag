@@ -1,5 +1,6 @@
 import weaviate
 import gradio as gr
+import os
 from dotenv import load_dotenv
 from sentence_transformers import SentenceTransformer
 from sentence_transformers import CrossEncoder
@@ -9,9 +10,9 @@ import ollama
 
 load_dotenv()
 
-WEAVIATE_URL = "http://localhost:8080"
-CLASS_NAME = "ElectronicsChunk"
-DATA_FOLDER = "data"
+WEAVIATE_URL = os.getenv("WEAVIATE_URL")
+CLASS_NAME = os.getenv("INDEX_NAME")
+DATA_FOLDER = os.getenv("DATA_FOLDER")
 
 client = weaviate.Client(WEAVIATE_URL)
 embedder = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
@@ -24,6 +25,20 @@ def get_embedding(text):
     )["embedding"]
 
 def rerank(query, chunks):
+    """
+    Re-ranks retrieved document chunks using a CrossEncoder model.
+
+    First, the function creates (query, chunk) pairs for each retrieved chunk.
+    Then the CrossEncoder predicts a relevance score for every pair by
+    evaluating the query and document text together.
+
+    Unlike embeddings-based retrieval, which finds candidates by vector similarity,
+    reranking provides more accurate relevance estimation because the model
+    directly compares the query with each chunk.
+
+    Finally, chunks are sorted by relevance score in descending order,
+    and the reordered list is returned.
+    """
     pairs = [(query, chunk["text"]) for chunk in chunks]
 
     scores = reranker.predict(pairs)
@@ -34,8 +49,20 @@ def rerank(query, chunks):
 
     return [item[0] for item in scored]
 
-def retrieve(query, k=5, alpha=0.5):
+def retrieve(query, k=3, alpha=0.5):
+    """
+    Best k selection:
+    After testing multiple values (k=3, 5, 7, 10) on a small dataset,
+    k=3 gives the best results.
+    
+    Reason:
+    - the dataset is small, so relevant information is usually found in top results
+    - increasing k introduces more noise and irrelevant chunks
+    - k=3 maintains the best balance between precision and context quality
+    
+    Therefore, k=3 is optimal for this dataset size and retrieval setup.
     vector = get_embedding(query)
+    """
 
     result = (
         client.query
