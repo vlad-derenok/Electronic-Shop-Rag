@@ -3,11 +3,10 @@ import weaviate
 import logging
 import ollama
 from dotenv import load_dotenv
-from langchain_community.document_loaders import (
-    DirectoryLoader,
-    TextLoader,
-    PyPDFLoader,
-)
+from typing import TypedDict, Annotated
+from langchain_core.messages import BaseMessage, HumanMessage, AIMessage
+from langgraph.graph.message import add_messages
+from langchain_community.document_loaders import TextLoader, PyPDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 
 logging.getLogger("httpx").setLevel(logging.WARNING)
@@ -25,18 +24,57 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 WEAVIATE_URL = os.getenv("WEAVIATE_URL")
-INDEX_NAME = os.getenv("INDEX_NAME")
 DATA_FOLDER = os.getenv("DATA_FOLDER")
+
+
+class RAGState(TypedDict):
+    messages: Annotated[list[BaseMessage], add_messages]
+    question: str
+    context: str
+    answer: str
+    precision: float
+    category: str
+
 
 class RAGData:
     def __init__(self, data_folder: str = DATA_FOLDER):
         self.client = weaviate.Client(WEAVIATE_URL)
         self.data_folder = data_folder
+        self.state: RAGState = {
+            "messages": [],
+            "question": "",
+            "context": "",
+            "answer": "",
+            "precision": 0.0,
+            "category": ""
+        }
 
         if not self.client.is_ready():
             raise RuntimeError("Weaviate is not ready")
 
         logger.info("RAGData initialized, Weaviate connected")
+
+    def update_state(self, question: str, answer: str, context: str, precision: float = 0.0, category: str = ""):
+        self.state["question"] = question
+        self.state["context"] = context
+        self.state["answer"] = answer
+        self.state["precision"] = precision
+        self.state["category"] = category
+        self.state["messages"] = self.state["messages"] + [
+            HumanMessage(content=question),
+            AIMessage(content=answer)
+        ]
+        logger.info(f"State updated — messages: {len(self.state['messages'])}, category: {category}")
+
+    def get_history(self, max_turns: int = 3) -> str:
+        messages = self.state["messages"][-max_turns * 2:]
+        history_text = ""
+        for msg in messages:
+            if isinstance(msg, HumanMessage):
+                history_text += f"Question: {msg.content}\n"
+            elif isinstance(msg, AIMessage):
+                history_text += f"Answer: {msg.content}\n\n"
+        return history_text
 
     def get_embedding(self, text: str) -> list:
         response = ollama.embeddings(
@@ -45,89 +83,45 @@ class RAGData:
         )
         return response["embedding"]
 
-    def init_data(self):
-        if not os.path.exists(self.data_folder):
-            raise RuntimeError(f"Data folder not found: {self.data_folder}")
-
-        logger.info(f"Loading documents from: {self.data_folder}")
-
+    def init_index(self, file_path: str, index_name: str):
         try:
-            self.client.schema.delete_class(INDEX_NAME)
-            logger.info(f"Deleted existing index: {INDEX_NAME}")
+            self.client.schema.delete_class(index_name)
+            logger.info(f"Deleted existing index: {index_name}")
         except Exception:
             pass
 
         self.client.schema.create_class({
-            "class": INDEX_NAME,
+            "class": index_name,
             "properties": [{"name": "text", "dataType": ["text"], "tokenization": "word"}],
             "vectorizer": "none"
         })
 
-        loaders = [
-            DirectoryLoader(
-                self.data_folder,
-                glob="**/*.txt",
-                loader_cls=TextLoader,
-                loader_kwargs={"encoding": "utf-8"},
-                show_progress=True,
-            ),
-            DirectoryLoader(
-                self.data_folder,
-                glob="**/*.pdf",
-                loader_cls=PyPDFLoader,
-                show_progress=True,
-            ),
-        ]
+        if file_path.endswith(".txt"):
+            loader = TextLoader(file_path, encoding="utf-8")
+        elif file_path.endswith(".pdf"):
+            loader = PyPDFLoader(file_path)
+        else:
+            raise ValueError(f"Unsupported file type: {file_path}")
 
-        documents = []
-        for loader in loaders:
-            docs = loader.load()
-            logger.info(f"Loaded {len(docs)} documents")
-            documents.extend(docs)
-
-        logger.info(f"Total documents loaded: {len(documents)}")
+        documents = loader.load()
+        logger.info(f"Loaded {len(documents)} documents from {file_path}")
 
         splitter = RecursiveCharacterTextSplitter(
-            # Best chunk configuration:
-            # chunk_size=800, chunk_overlap=150
-            #
-            # This setup is the best because:
-            # - MRR = 1.0 → correct chunk is always ranked first (perfect retrieval)
-            # - Answer score = 100 → model consistently produces correct answers
-            # - Average similarity = 55.0 → acceptable semantic match, sufficient for correct grounding
-            #
-            # Even though similarity is not the highest, this configuration gives the best balance
-            # between retrieval accuracy and final answer correctness.
-            
             chunk_size=800,
             chunk_overlap=150,
         )
         splits = splitter.split_documents(documents)
-        logger.info(f"Total chunks after splitting: {len(splits)}")
+        logger.info(f"Chunks: {len(splits)}")
 
         stored = 0
         for doc in splits:
             vector = self.get_embedding(doc.page_content)
             self.client.data_object.create(
                 data_object={"text": doc.page_content},
-                class_name=INDEX_NAME,
+                class_name=index_name,
                 vector=vector
             )
             stored += 1
 
-        logger.info(f"Stored vectors: {stored}")
-
-        total_chars = sum(len(doc.page_content) for doc in splits)
-        estimated_tokens = total_chars // 4
-        logger.info(f"Estimated embedding tokens: ~{estimated_tokens}")
-
-        return {
-            "documents": len(documents),
-            "chunks": len(splits),
-            "stored_vectors": stored,
-        }
-
-    def get_vector_store(self):
-        if self.vector_store is None:
-            raise RuntimeError("Vector store is not initialized. Run init_data() first.")
-        return self.vector_store
+        logger.info(f"Stored {stored} vectors in index: {index_name}")
+        return {"chunks": len(splits), "stored": stored}

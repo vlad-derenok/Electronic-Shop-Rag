@@ -1,5 +1,5 @@
 import os
-from PyPDF2 import PdfReader
+from pypdf import PdfReader
 
 def load_txt(path):
     with open(path, "r", encoding="utf-8") as f:

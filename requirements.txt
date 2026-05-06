@@ -1,17 +1,29 @@
-dotenv
-fastapi
-langchain=0.1.8
-langchain-community=0.0.24
-langchain-openai
-langchain-text-splitters=1.1.1
+python-dotenv==1.0.1
+fastapi==0.115.0
+uvicorn==0.30.6
+pydantic==2.7.4
+fastapi-controllers==0.2.0
+
+# LangChain
+langchain==0.3.0
+langchain-community==0.3.0
+langchain-core==0.3.0
+langchain-text-splitters==0.3.0
+langgraph==1.1.10
+
+# Weaviate
 weaviate-client>=3.26.7,<4.0.0
-python-dotenv
-PyPDF2
-pydantic
-gradio
-beautifulsoup4
-lxml
-requests
-sentence_transformers
-google
-os
+
+# Ollama
+ollama==0.3.3
+
+# PDF
+pypdf==4.3.1
+
+# Fuzzy matching
+fuzzywuzzy==0.18.0
+python-Levenshtein==0.25.1
+
+# Other
+requests==2.32.3
+gradio==4.44.0

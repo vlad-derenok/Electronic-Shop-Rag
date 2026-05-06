@@ -10,10 +10,14 @@ class DataController(Controller):
     @post("/init")
     def init_data(self):
         try:
-            result = self.rag_data.init_data()
+            results = {}
+            results["gadgets"] = self.rag_data.init_index("data/gadgets.txt", "Gadgets")
+            results["headphones"] = self.rag_data.init_index("data/headphones.txt", "Headphones")
+            results["laptops"] = self.rag_data.init_index("data/laptops.txt", "Laptops")
+            results["smartphones"] = self.rag_data.init_index("data/smartphones.txt", "Smartphones")
             return {
                 "status": "ok",
-                "details": result,
+                "details": results,
             }
         except Exception as e:
             import traceback
